@@ -66,3 +66,8 @@ def test_fetch_connection_refused():
         raise httpx.ConnectError("соединение отклонено")
     with pytest.raises(MatrixFetchError):
         _fetch_with_mock(handler)
+
+def test_parse_error_shows_row_number():
+    """Аналитику важно знать, в какой строке источника битые данные."""
+    with pytest.raises(MatrixParseError, match="Строка 2"):
+        parse_matrix("| 1 | 2 |\n| 3 | x |\n")

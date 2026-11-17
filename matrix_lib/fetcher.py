@@ -20,7 +20,10 @@ def parse_matrix(text: str) -> List[List[int]]:
             # int() сам игнорирует пробелы вокруг числа: int("  10 ") == 10
             matrix.append([int(cell) for cell in cells])
         except ValueError as exc:
-            raise MatrixParseError(f"В строке матрицы не число: {line}") from exc
+            row_number = len(matrix) + 1
+            raise MatrixParseError(
+                f"Строка {row_number}: в матрице не число: {line}"
+            ) from exc
     if not matrix:
         raise MatrixParseError("В ответе сервера нет ни одной строки матрицы")
 
